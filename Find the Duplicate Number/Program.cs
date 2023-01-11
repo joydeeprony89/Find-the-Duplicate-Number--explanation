@@ -22,9 +22,9 @@ namespace Find_the_Duplicate_Number
      */
     static void Main(string[] args)
     {
-      var nums = new int[5] { 4, 3, 1, 4, 2 };
+      var nums = new int[5] { 1, 3, 4, 2, 2 }; // 4, 3, 1, 4, 2
       Solution s = new Solution();
-      var answer = s.FindDuplicate(nums);
+      var answer = s.Find(nums);
       Console.WriteLine(answer);
     }
   }
@@ -49,6 +49,24 @@ namespace Find_the_Duplicate_Number
       }
 
       return slow;
+    }
+
+    public int Find(int[] nums)
+    {
+      int ans = int.MinValue;
+      for (int i = 0; i < nums.Length; i++)
+      {
+        var idx = nums[i];
+        idx = Math.Abs(idx);
+        var val = nums[idx];
+        if (val < 0)
+        {
+          ans = idx;
+          break;
+        }
+        nums[idx] = val * -1;
+      }
+      return ans;
     }
   }
 }
